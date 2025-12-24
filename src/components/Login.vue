@@ -24,13 +24,16 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '../store/user';
 
 const router = useRouter()
+const userStore = useUserStore();
 const username = ref('')
 const password = ref('')
 
 const handleLogin = () => {
     if (username.value === 'admin' && password.value === 'admin') {
+        userStore.login(username.value);
         router.push('/main')
     } else {
         alert('账号或密码错误')
