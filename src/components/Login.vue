@@ -8,11 +8,11 @@
 
         <form @submit.prevent="handleLogin">
             <div class="form-group">
-                <p>账号：</p>
+                <p>登录名称：</p>
                 <input type="text" v-model="username" placeholder="请输入用户名" required />
             </div>
             <div class="form-group">
-                <p>密码：</p>
+                <p>登录密码：</p>
                 <input type="password" v-model="password" placeholder="请输入密码" required />
             </div>
 
@@ -28,12 +28,12 @@ import { useUserStore } from '../store/user';
 
 const router = useRouter()
 const userStore = useUserStore();
-const username = ref('')
-const password = ref('')
+const username = ref('guotianzheng')
+const password = ref('2411050224')
 
 const handleLogin = () => {
-    if (username.value === 'admin' && password.value === 'admin') {
-        userStore.login(username.value);
+    if (username.value === 'guotianzheng' && password.value === '2411050224') {
+        userStore.login(username.value,password.value);
         router.push('/main')
     } else {
         alert('账号或密码错误')
@@ -98,7 +98,7 @@ button:hover {
 }
 
 p {
-    width: 20%;
+    width: 35%;
     display: flex;
     align-items: center;
     justify-content: center;

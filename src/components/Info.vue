@@ -1,3 +1,4 @@
+<!-- d:\vue-homework\src\components\Info.vue -->
 <template>
   <div>
     <!-- 导航栏 -->
@@ -10,8 +11,8 @@
         <!-- 只有登录后才显示菜单项 -->
         <div class="nav-menu-items" v-if="userStore.isLoggedIn">
           <!-- 个人信息路由链接 -->
-          <div class="nav-menu-item" @click="goToInfo">
-            <span>个人信息</span>
+          <div class="nav-menu-item" @click="goToMain">
+            <span>主页</span>
           </div>
           <div class="nav-menu-item">
             <span>菜单项 2</span>
@@ -34,16 +35,22 @@
       </div>
     </nav>
     
-    <!-- 登录后显示的页面内容 -->
-    <div v-if="userStore.isLoggedIn" class="main-content">
-      <h1>欢迎来到Main</h1>
-      <p>这里是页面的主要内容</p>
-    </div>
-    
-    <!-- 未登录时显示提示信息 -->
-    <div v-else class="login-prompt">
-      <h2>请先登录</h2>
-      <p>您需要登录后才能查看页面内容</p>
+    <!-- 个人信息内容 -->
+    <div class="info-page">
+      <h1>个人信息</h1>
+      <div class="info-content" v-if="userStore.isLoggedIn">
+        <div class="info-item">
+          <label>姓名:</label>
+          <span>{{ userInfo.name }}</span>
+        </div>
+        <div class="info-item">
+          <label>学号:</label>
+          <span>{{ userInfo.studentId }}</span>
+        </div>
+      </div>
+      <div v-else class="not-logged-in">
+        <p>请先登录以查看个人信息</p>
+      </div>
     </div>
   </div>
 </template>
@@ -51,18 +58,27 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
+
 const userStore = useUserStore();
-const router = useRouter()
+const router = useRouter();
+
+// 示例用户信息，您可以从用户存储中获取真实数据
+const userInfo = {
+  name: userStore.userName,
+  studentId: userStore.userStuId
+}
 
 const handleLogin = () => {
   router.push('/')
 }
+
 const handleLogout = () => {
   userStore.logout();
-  router.push('/')
+  router.push('/') // 登出后跳转到登录页
 }
-const goToInfo = () => {
-  router.push('/info')
+
+const goToMain = () => {
+  router.push('/main')
 }
 </script>
 
@@ -148,26 +164,45 @@ const goToInfo = () => {
   background-color: #cc0000;
 }
 
-/* 主要内容区域 */
-.main-content {
+/* 个人信息页面样式 */
+.info-page {
   padding: 2rem;
   margin-top: 80px; /* 留出导航栏的空间 */
 }
 
-.login-prompt {
+.info-content {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #f8f9fa;
   padding: 2rem;
-  margin-top: 80px; /* 留出导航栏的空间 */
-  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
 }
 
-.login-prompt h2 {
-  color: #333;
+.info-item {
+  display: flex;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef;
 }
 
-.login-prompt p {
+.info-item label {
+  width: 80px;
+  font-weight: bold;
+  color: #333;
+}
+
+.info-item span {
+  flex: 1;
   color: #666;
-  margin-bottom: 1.5rem;
+}
+
+.not-logged-in {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
 }
 
 .logo {
