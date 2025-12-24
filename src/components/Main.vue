@@ -25,7 +25,7 @@
         </div>
         <!-- 用户信息 -->
         <div class="nav-user" v-if="userStore.isLoggedIn">
-          <span>欢迎, {{ userStore.userName }}</span>
+          <span>{{ userStore.userName }}</span>
           <button @click="handleLogout" class="nav-button logout">登出</button>
         </div>
         <div class="nav-user" v-else>
@@ -33,13 +33,13 @@
         </div>
       </div>
     </nav>
-    
+
     <!-- 登录后显示的页面内容 -->
     <div v-if="userStore.isLoggedIn" class="main-content">
       <h1>欢迎来到Main</h1>
       <p>这里是页面的主要内容</p>
     </div>
-    
+
     <!-- 未登录时显示提示信息 -->
     <div v-else class="login-prompt">
       <h2>请先登录</h2>
@@ -49,14 +49,19 @@
 </template>
 
 <script setup>
+
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
+
+
+
 const userStore = useUserStore();
 const router = useRouter()
 
 const handleLogin = () => {
   router.push('/')
 }
+
 const handleLogout = () => {
   userStore.logout();
   router.push('/')
@@ -151,12 +156,14 @@ const goToInfo = () => {
 /* 主要内容区域 */
 .main-content {
   padding: 2rem;
-  margin-top: 80px; /* 留出导航栏的空间 */
+  margin-top: 80px;
+  /* 留出导航栏的空间 */
 }
 
 .login-prompt {
   padding: 2rem;
-  margin-top: 80px; /* 留出导航栏的空间 */
+  margin-top: 80px;
+  /* 留出导航栏的空间 */
   text-align: center;
 }
 

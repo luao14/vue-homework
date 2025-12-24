@@ -26,7 +26,7 @@
         </div>
         <!-- 用户信息 -->
         <div class="nav-user" v-if="userStore.isLoggedIn">
-          <span>欢迎, {{ userStore.userName }}</span>
+          <span>{{ userStore.userName }}</span>
           <button @click="handleLogout" class="nav-button logout">登出</button>
         </div>
         <div class="nav-user" v-else>
@@ -34,10 +34,11 @@
         </div>
       </div>
     </nav>
-    
+
     <!-- 个人信息内容 -->
     <div class="info-page">
       <h1>个人信息</h1>
+
       <div class="info-content" v-if="userStore.isLoggedIn">
         <div class="info-item">
           <label>姓名:</label>
@@ -58,6 +59,8 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/user';
+
+
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -167,7 +170,8 @@ const goToMain = () => {
 /* 个人信息页面样式 */
 .info-page {
   padding: 2rem;
-  margin-top: 80px; /* 留出导航栏的空间 */
+  margin-top: 80px;
+  /* 留出导航栏的空间 */
 }
 
 .info-content {

@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', {
 
     actions: {
 
-        login(userName,userStuId) {
+        login(userName, userStuId) {
             this.userName = userName
             this.userStuId = userStuId
             this.isLoggedIn = true
