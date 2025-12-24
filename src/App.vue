@@ -6,9 +6,7 @@
   </div>
 </template>
 
-<script setup>
-const test = "hello world" // 双引号 + 无分号
-</script>
+<script setup></script>
 
 <style>
 * {
