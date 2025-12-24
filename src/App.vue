@@ -6,7 +6,10 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const test = 'hello world 666'; // 双引号 + 无分号
+console.log(test);
+</script>
 
 <style>
 * {
