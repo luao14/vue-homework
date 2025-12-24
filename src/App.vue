@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-const test = "bad style"// 双引号 + 无分号
+const test = "bad style"
 </script>
 
 <style>
