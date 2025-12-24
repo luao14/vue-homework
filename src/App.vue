@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-
+const test = "hello"
 </script>
 
 <style>
