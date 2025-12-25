@@ -6,10 +6,7 @@
   </div>
 </template>
 
-<script setup>
-const test = 'hello world 666'; // 双引号 + 无分号
-console.log(test);
-</script>
+<script setup></script>
 
 <style>
 * {
@@ -20,12 +17,11 @@ console.log(test);
 
 .app-container {
   min-height: 100vh;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 }
 
-/* 淡入淡出过渡效果 */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1s ease;
