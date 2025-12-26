@@ -66,7 +66,7 @@ const handleLogin = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(-45deg, #814c17, #695115, #64326a, #6f2c35);
+  background: linear-gradient(-45deg, #4c2c0c, #451c06, #542459, #6f2c35);
   background-size: 400% 400%;
   animation: gradientBG 7s ease infinite;
   padding: 20px;
@@ -79,9 +79,11 @@ const handleLogin = () => {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
