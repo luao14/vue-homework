@@ -174,9 +174,9 @@ const hobby = reactive(['篮球', '足球', '羽毛球', '乒乓球', '排球', 
 const user = ref('');
 const height = ref('');
 const weight = ref('');
-const gender = ref('男');
+const gender = ref('');
 const checkedNames = ref([]);
-const address = ref('南昌');
+const address = ref('');
 
 const handleLogout = () => {
   userStore.logout();
