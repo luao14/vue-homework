@@ -66,9 +66,18 @@ const handleLogin = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(-45deg, #4c2c0c, #451c06, #542459, #6f2c35);
+  background: linear-gradient(
+    -45deg,
+    #1f2a31,
+    #2e3d4d,
+    #5678b3,
+    #6b9cf1,
+    #5678b3,
+    #2e3d4d,
+    #1f2a31
+  );
   background-size: 400% 400%;
-  animation: gradientBG 7s ease infinite;
+  animation: gradientBG 10s ease infinite;
   padding: 20px;
   position: relative;
   width: 100%;

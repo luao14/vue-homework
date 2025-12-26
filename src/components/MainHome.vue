@@ -1,30 +1,38 @@
 <template>
   <div>
     <nav class="navbar">
-      <div class="nav-brand">
-        <img src="@/image/logo.png" alt="logo" class="logo" />
-        <h2>义乌工商银行</h2>
+      <div class="nav-left">
+        <div class="nav-brand">
+          <img src="@/image/logo.png" alt="logo" class="logo" />
+          <h2>义乌工商学院</h2>
+        </div>
       </div>
 
-      <div class="nav-menu">
-        <div class="nav-menu-items">
-          <div class="nav-menu-item" @click="goToMainHome">
-            <span>主页</span>
-          </div>
-          <div class="nav-menu-item" @click="goToMyInfo">
-            <span>个人信息</span>
-          </div>
-          <div class="nav-menu-item">
-            <span>每日新闻</span>
-          </div>
-          <div class="nav-menu-item">
-            <span>注册用户</span>
-          </div>
+      <div class="nav-center">
+        <div
+          class="nav-menu-item"
+          :class="{ active: $route.path === '/mainhome' }"
+        >
+          <span>首页</span>
         </div>
+        <div class="nav-menu-item" @click="goToMyInfo">
+          <span>个人信息</span>
+        </div>
+        <div class="nav-menu-item">
+          <span>每日新闻</span>
+        </div>
+        <div class="nav-menu-item">
+          <span>注册用户</span>
+        </div>
+        <div class="nav-menu-item">
+          <span>动态功能</span>
+        </div>
+      </div>
 
+      <div class="nav-right">
         <div class="nav-user">
           <span>{{ userStore.userName }}</span>
-          <button class="nav-button logout" @click="handleLogout">登出</button>
+          <button class="nav-button" @click="handleLogout">登出</button>
         </div>
       </div>
     </nav>
@@ -34,7 +42,7 @@
       <p>以下是学校图片</p>
     </div>
 
-    <!-- 添加轮播图部分 -->
+    <!-- 轮播图部分 -->
     <div class="carousel-container">
       <div class="carousel">
         <div
@@ -77,11 +85,7 @@ const goToMyInfo = () => {
   router.push('/myinfo');
 };
 
-const goToMainHome = () => {
-  router.push('/mainhome');
-};
-
-// 轮播图数据
+// 轮播图部分
 const slides = ref([
   {
     image: image1,
@@ -96,8 +100,6 @@ const slides = ref([
 
 const currentSlide = ref(0);
 let slideInterval = null;
-
-// 轮播图方法
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % slides.value.length;
 };
@@ -106,11 +108,10 @@ const goToSlide = index => {
   currentSlide.value = index;
 };
 
-// 自动播放
 const startAutoPlay = () => {
   slideInterval = setInterval(() => {
     nextSlide();
-  }, 3000); // 每5秒切换一次
+  }, 5000);
 };
 
 const stopAutoPlay = () => {
@@ -119,12 +120,10 @@ const stopAutoPlay = () => {
   }
 };
 
-// 组件挂载后开始自动播放
 onMounted(() => {
   startAutoPlay();
 });
 
-// 组件卸载前停止自动播放
 onUnmounted(() => {
   stopAutoPlay();
 });
@@ -134,8 +133,9 @@ onUnmounted(() => {
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
+  background: linear-gradient(to right, #2c3e50, #4a6491, #2c3e50);
   position: fixed;
   top: 0;
   left: 0;
@@ -143,6 +143,30 @@ onUnmounted(() => {
   height: auto;
   z-index: 1000;
   box-sizing: border-box;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-center {
+  flex: 2;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.nav-right {
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .nav-brand {
@@ -150,26 +174,28 @@ onUnmounted(() => {
   align-items: center;
 }
 
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 12rem;
+.logo {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
 }
 
-.nav-menu-items {
-  display: flex;
-  gap: 1.5rem;
+.nav-brand h2 {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 .nav-menu-item {
   padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.8s ease;
 }
 
-.nav-menu-item:hover {
-  background: linear-gradient(45deg, #ff4444, #bace08, #4476ff, #50f055);
+.nav-menu-item:hover,
+.nav-menu-item.active {
+  background: linear-gradient(90deg, #4c6897, #a2a2a2, #4c6897);
   background-size: 200% 200%;
   color: white;
   animation: gradientShift 1.5s ease infinite;
@@ -201,27 +227,18 @@ onUnmounted(() => {
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.9rem;
-}
-
-.logout {
-  background-color: #ff0000;
+  background-color: #e74c3c;
   color: white;
 }
 
-.logout:hover {
-  background-color: #d10909;
+.nav-button:hover {
+  background-color: #952f24;
 }
 
 .main-content {
   padding: 2rem;
   text-align: center;
-  margin-top: 80px;
-}
-
-.logo {
-  width: 45px;
-  height: 45px;
-  margin-right: 10px;
+  margin-top: 60px;
 }
 
 .carousel-container {
@@ -241,7 +258,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .carousel-slide img {
@@ -256,7 +273,7 @@ onUnmounted(() => {
 .carousel {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 500px;
 }
 
 .carousel-indicators {
@@ -274,7 +291,7 @@ onUnmounted(() => {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 1s;
 }
 
 .carousel-indicators span.active {

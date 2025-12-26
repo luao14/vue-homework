@@ -15,16 +15,32 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow: -moz-scrollbars-none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .app-container {
   min-height: 100vh;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 2s ease;
 }
 
 .fade-enter-from,
