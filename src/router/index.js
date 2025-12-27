@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('@/components/MyInfo.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/register',
+      component: () => import('@/components/UserRegister.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

@@ -21,7 +21,7 @@
         <div class="nav-menu-item">
           <span>每日新闻</span>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item" @click="goToRegister">
           <span>注册用户</span>
         </div>
         <div class="nav-menu-item">
@@ -85,6 +85,9 @@ const goToMyInfo = () => {
   router.push('/myinfo');
 };
 
+const goToRegister = () => {
+  router.push('/register');
+};
 // 轮播图部分
 const slides = ref([
   {
@@ -222,17 +225,20 @@ onUnmounted(() => {
 }
 
 .nav-button {
-  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: #2c3e50;
   border: none;
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
-  background-color: #e74c3c;
-  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
 }
 
 .nav-button:hover {
-  background-color: #952f24;
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
 }
 
 .main-content {

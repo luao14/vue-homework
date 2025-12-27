@@ -21,7 +21,7 @@
         <div class="nav-menu-item">
           <span>每日新闻</span>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item" @click="goToRegister">
           <span>注册用户</span>
         </div>
         <div class="nav-menu-item">
@@ -37,7 +37,6 @@
       </div>
     </nav>
 
-    <!-- 个人信息内容 -->
     <div class="profile-container">
       <div class="form-card">
         <h2 class="form-title">个人信息管理</h2>
@@ -128,7 +127,7 @@
       </div>
 
       <div class="info-preview-card">
-        <h3 class="info-preview-title">信息预览</h3>
+        <h3 class="info-preview-title">个人信息预览</h3>
         <div class="info-preview-grid">
           <div class="info-preview-item">
             <span class="info-preview-label">姓名</span>
@@ -185,6 +184,10 @@ const handleLogout = () => {
 
 const goToMainHome = () => {
   router.push('/mainhome');
+};
+
+const goToRegister = () => {
+  router.push('/register');
 };
 
 const handleSubmit = () => {
@@ -299,17 +302,20 @@ const handleReset = () => {
 }
 
 .nav-button {
-  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: #2c3e50;
   border: none;
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
-  background-color: #e74c3c;
-  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
 }
 
 .nav-button:hover {
-  background-color: #952f24;
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
 }
 
 .logo {
@@ -318,7 +324,7 @@ const handleReset = () => {
   margin-right: 10px;
 }
 
-/* 主要内容区域 */
+/* -------------------------------- */
 .profile-container {
   margin-top: 140px;
   margin-left: 10%;
@@ -419,7 +425,6 @@ const handleReset = () => {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  /* transition: all 0.3s ease; */
 }
 
 .btn-submit {
