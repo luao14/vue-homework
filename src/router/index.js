@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('@/components/UserRegister.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/shoppingcart',
+      component: () => import('@/components/ShoppingCart.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 });
 

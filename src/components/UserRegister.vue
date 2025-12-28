@@ -24,7 +24,7 @@
         >
           <span>注册用户</span>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item" @click="goToShoppingCart">
           <span>动态功能</span>
         </div>
       </div>
@@ -297,6 +297,9 @@ const goToMyInfo = () => {
   router.push('/myinfo');
 };
 
+const goToShoppingCart = () => {
+  router.push('/shoppingcart');
+};
 // 删除用户方法
 const removeUser = userId => {
   if (confirm('确定要删除这个用户吗？')) {

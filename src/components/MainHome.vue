@@ -24,7 +24,7 @@
         <div class="nav-menu-item" @click="goToRegister">
           <span>注册用户</span>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item" @click="goToShoppingCart">
           <span>动态功能</span>
         </div>
       </div>
@@ -87,6 +87,10 @@ const goToMyInfo = () => {
 
 const goToRegister = () => {
   router.push('/register');
+};
+
+const goToShoppingCart = () => {
+  router.push('/shoppingcart');
 };
 // 轮播图部分
 const slides = ref([
