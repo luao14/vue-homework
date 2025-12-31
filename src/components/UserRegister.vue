@@ -15,7 +15,7 @@
         <div class="nav-menu-item" @click="goToMyInfo">
           <span>个人信息</span>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item" @click="goToNewsPage">
           <span>每日新闻</span>
         </div>
         <div
@@ -299,6 +299,10 @@ const goToMyInfo = () => {
 
 const goToShoppingCart = () => {
   router.push('/shoppingcart');
+};
+
+const goToNewsPage = () => {
+  router.push('/newspage');
 };
 // 删除用户方法
 const removeUser = userId => {

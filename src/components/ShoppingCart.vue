@@ -1,46 +1,16 @@
 <template>
   <div>
     <!-- 导航栏 -->
-    <nav class="navbar">
-      <div class="nav-left">
-        <div class="nav-brand">
-          <img src="@/image/logo.png" alt="logo" class="logo" />
-          <h2>义乌工商学院</h2>
-        </div>
-      </div>
-
-      <div class="nav-center">
-        <div class="nav-menu-item" @click="goToHome">
-          <span>首页</span>
-        </div>
-        <div class="nav-menu-item" @click="goToMyInfo">
-          <span>个人信息</span>
-        </div>
-        <div class="nav-menu-item">
-          <span>每日新闻</span>
-        </div>
-        <div class="nav-menu-item" @click="goToRegister">
-          <span>注册用户</span>
-        </div>
-        <div
-          class="nav-menu-item"
-          :class="{ active: $route.path === '/shoppingcart' }"
-        >
-          <span>动态功能</span>
-        </div>
-      </div>
-
-      <div class="nav-right">
-        <div class="nav-user">
-          <span>{{ userName }}</span>
-          <button class="nav-button" @click="handleLogout">登出</button>
-        </div>
-      </div>
-    </nav>
+    <TheNavbar />
 
     <!-- 购物车内容 -->
     <div class="shopping-cart-container">
-      <h1 class="cart-title">购物车</h1>
+      <div class="cart-header">
+        <button class="back-button" @click="goBack">
+          <span>← 后退</span>
+        </button>
+        <h1 class="cart-title">购物车</h1>
+      </div>
 
       <div class="cart-content">
         <!-- 购物车表格 -->
@@ -51,7 +21,7 @@
               <tr>
                 <th class="col-select">
                   <input
-                    v-model="selectAll"
+                    v-model="cartStore.selectAll"
                     type="checkbox"
                     class="select-all-checkbox"
                     @change="handleSelectAll"
@@ -69,7 +39,7 @@
             <!-- 表格内容 -->
             <tbody>
               <tr
-                v-for="(item, index) in cartItems"
+                v-for="(item, index) in cartStore.cartItems"
                 :key="index"
                 class="cart-table-row"
               >
@@ -123,23 +93,23 @@
         <!-- 购物车汇总 -->
         <div class="cart-summary">
           <div class="summary-left">
-            <span>已选择 {{ selectedCount }} 种商品</span>
+            <span>已选择 {{ cartStore.selectedCount }} 种商品</span>
           </div>
           <div class="summary-right">
             <div class="summary-item">
               <span>所有商品总数：</span>
-              <span class="summary-value">{{ totalQuantity }}件</span>
+              <span class="summary-value">{{ cartStore.totalQuantity }}件</span>
             </div>
             <div class="summary-item">
               <span>选中商品总价：</span>
               <span class="summary-value selected-total"
-                >{{ selectedTotal.toFixed(2) }}元</span
+                >{{ cartStore.selectedTotal.toFixed(2) }}元</span
               >
             </div>
             <div class="summary-item">
               <span>所有商品总价：</span>
               <span class="summary-value total-price"
-                >{{ totalPrice.toFixed(2) }}元</span
+                >{{ cartStore.totalPrice.toFixed(2) }}元</span
               >
             </div>
           </div>
@@ -150,255 +120,101 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/store/user';
-import mitt from 'mitt';
-import { computed, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useCartStore } from '@/store/cart';
+import { watch } from 'vue';
+import TheNavbar from './TheNavbar.vue';
 
-// 创建事件总线
-const emitter = mitt();
-
-// 路由和状态管理
-const router = useRouter();
-const userStore = useUserStore();
-const userName = userStore.userName;
-
-// 购物车数据，添加selected属性用于记录选择状态
-const cartItems = ref([
-  { name: '商品1', price: 99.99, quantity: 1, selected: false },
-  { name: '商品2', price: 199.99, quantity: 1, selected: false },
-  { name: '商品3', price: 299.99, quantity: 1, selected: false },
-  { name: '商品4', price: 399.99, quantity: 1, selected: false },
-  { name: '商品5', price: 499.99, quantity: 1, selected: false },
-]);
-
-// 全选状态
-const selectAll = ref(false);
-
-// 计算属性：商品总数
-const totalQuantity = computed(() => {
-  return cartItems.value.reduce((total, item) => total + item.quantity, 0);
-});
-
-// 计算属性：商品总价
-const totalPrice = computed(() => {
-  return cartItems.value.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-});
-
-// 计算属性：选中商品数量
-const selectedCount = computed(() => {
-  return cartItems.value.filter(item => item.selected).length;
-});
-
-// 计算属性：选中商品总价
-const selectedTotal = computed(() => {
-  return cartItems.value.reduce((total, item) => {
-    return item.selected ? total + item.price * item.quantity : total;
-  }, 0);
-});
+// 状态管理
+const cartStore = useCartStore();
 
 // 监听商品选择状态变化，更新全选状态
 watch(
-  () => cartItems.value.map(item => item.selected),
-  newValues => {
-    const allSelected = newValues.every(selected => selected);
-    const someSelected = newValues.some(selected => selected);
-
-    if (allSelected) {
-      selectAll.value = true;
-    } else if (!someSelected) {
-      selectAll.value = false;
-    } else {
-      // 部分选中时，不应改变全选按钮的状态，保持为false
-      selectAll.value = false;
-    }
+  () => cartStore.cartItems.map(item => item.selected),
+  () => {
+    cartStore.updateSelectAll();
   },
   { deep: true }
 );
 
 // 数量控制：增加
 const increaseQuantity = index => {
-  cartItems.value[index].quantity++;
-  // 发送事件通知其他组件
-  emitter.emit('quantityChanged', cartItems.value);
+  cartStore.increaseQuantity(index);
 };
 
 // 数量控制：减少
 const decreaseQuantity = index => {
-  if (cartItems.value[index].quantity > 1) {
-    cartItems.value[index].quantity--;
-    // 发送事件通知其他组件
-    emitter.emit('quantityChanged', cartItems.value);
-  }
+  cartStore.decreaseQuantity(index);
 };
 
 // 处理数量输入
 const handleQuantityInput = index => {
-  let quantity = cartItems.value[index].quantity;
-  if (isNaN(quantity) || quantity < 1) {
-    cartItems.value[index].quantity = 1;
-  }
-  // 发送事件通知其他组件
-  emitter.emit('quantityChanged', cartItems.value);
+  cartStore.updateQuantity(index, cartStore.cartItems[index].quantity);
 };
 
 // 处理全选
 const handleSelectAll = () => {
-  // 直接设置所有商品的selected状态
-  cartItems.value.forEach(item => {
-    item.selected = selectAll.value;
-  });
-  // 发送事件通知其他组件
-  emitter.emit('selectionChanged', cartItems.value);
+  cartStore.handleSelectAll();
 };
 
 // 处理单个商品选择
 const handleItemSelect = () => {
-  // 发送事件通知其他组件
-  emitter.emit('selectionChanged', cartItems.value);
+  // 自动触发watch更新
 };
 
-// 导航方法
-const goToHome = () => {
-  router.push('/mainhome');
-};
-
-const goToMyInfo = () => {
-  router.push('/myinfo');
-};
-
-const goToRegister = () => {
-  router.push('/register');
-};
-
-const handleLogout = () => {
-  userStore.logout();
-  router.push('/');
+// 后退功能，后退2步或尽可能后退到最早页面
+const goBack = () => {
+  // 检查历史记录长度，history.length包含当前页面
+  if (history.length > 3) {
+    // 当历史记录足够时，后退2步
+    window.history.go(-2);
+  } else if (history.length > 1) {
+    // 当历史记录不足2步时，退回到最早页面
+    window.history.go(-(history.length - 1));
+  }
 };
 </script>
 
 <style scoped>
-/* 复用导航栏样式 */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: linear-gradient(to right, #2c3e50, #4a6491, #2c3e50);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 1000;
-  box-sizing: border-box;
-  color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.nav-left,
-.nav-center,
-.nav-right {
-  display: flex;
-  align-items: center;
-}
-
-.nav-left {
-  flex: 1;
-}
-
-.nav-center {
-  flex: 2;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.nav-right {
-  flex: 1;
-  justify-content: flex-end;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 45px;
-  height: 45px;
-  margin-right: 10px;
-}
-
-.nav-brand h2 {
-  color: white;
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.nav-menu-item {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.8s ease;
-}
-
-.nav-menu-item:hover,
-.nav-menu-item.active {
-  background: linear-gradient(90deg, #4c6897, #a2a2a2, #4c6897);
-  background-size: 200% 200%;
-  color: white;
-  animation: gradientShift 1.5s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.nav-user {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.nav-button {
-  background-color: #fff;
-  color: #2c3e50;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: 1px solid #ddd;
-}
-
-.nav-button:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-2px);
-}
-
 /* 购物车样式 */
 .shopping-cart-container {
   margin-top: 120px;
 }
 
+/* 购物车头部样式 */
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* 后退按钮样式 */
+.back-button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-button:hover {
+  background-color: #34495e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .cart-title {
-  text-align: center;
   color: #2c3e50;
   font-size: 2rem;
+  margin: 0;
 }
 
 .cart-content {

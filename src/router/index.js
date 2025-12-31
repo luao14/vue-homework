@@ -19,6 +19,11 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/newspage/:mainTab?/:subTab?',
+      component: () => import('@/components/NewsPage.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/register',
       component: () => import('@/components/UserRegister.vue'),
       meta: { requiresAuth: true },

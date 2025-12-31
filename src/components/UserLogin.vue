@@ -46,8 +46,8 @@ import { useUserStore } from '../store/user';
 
 const router = useRouter();
 const userStore = useUserStore();
-const username = ref('guotianzheng');
-const password = ref('2411050224');
+const username = ref('');
+const password = ref('');
 const errorMessage = ref('');
 
 const handleLogin = () => {
