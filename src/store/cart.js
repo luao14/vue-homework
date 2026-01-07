@@ -3,11 +3,51 @@ import { defineStore } from 'pinia';
 export const useCartStore = defineStore('cart', {
   state: () => ({
     cartItems: [
-      { name: '商品1', price: 99.99, quantity: 1, selected: false },
-      { name: '商品2', price: 199.99, quantity: 1, selected: false },
-      { name: '商品3', price: 299.99, quantity: 1, selected: false },
-      { name: '商品4', price: 399.99, quantity: 1, selected: false },
-      { name: '商品5', price: 499.99, quantity: 1, selected: false },
+      {
+        id: 1,
+        name: '无线蓝牙耳机',
+        price: 99.99,
+        quantity: 1,
+        selected: false,
+        tags: ['热门', '推荐', '电子产品'],
+        image: 'https://picsum.photos/seed/product1/100/100',
+      },
+      {
+        id: 2,
+        name: '纯棉短袖T恤',
+        price: 199.99,
+        quantity: 1,
+        selected: false,
+        tags: ['新品', '服装', '夏季'],
+        image: 'https://picsum.photos/seed/product2/100/100',
+      },
+      {
+        id: 3,
+        name: '智能手表',
+        price: 299.99,
+        quantity: 1,
+        selected: false,
+        tags: ['热门', '新品', '智能穿戴'],
+        image: 'https://picsum.photos/seed/product3/100/100',
+      },
+      {
+        id: 4,
+        name: '运动鞋',
+        price: 399.99,
+        quantity: 1,
+        selected: false,
+        tags: ['推荐', '运动', '户外'],
+        image: 'https://picsum.photos/seed/product4/100/100',
+      },
+      {
+        id: 5,
+        name: '笔记本电脑',
+        price: 499.99,
+        quantity: 1,
+        selected: false,
+        tags: ['热门', '新品', '推荐', '数码'],
+        image: 'https://picsum.photos/seed/product5/100/100',
+      },
     ],
     selectAll: false,
   }),
@@ -71,6 +111,12 @@ export const useCartStore = defineStore('cart', {
       } else {
         this.selectAll = false;
       }
+    },
+
+    removeItem(index) {
+      this.cartItems.splice(index, 1);
+      // 删除后更新全选状态
+      this.updateSelectAll();
     },
   },
 

@@ -38,16 +38,37 @@
       </div>
       <div
         class="nav-menu-item"
+        :class="{ active: $route.path === '/registered-users' }"
+        @click="goToRegisteredUsers"
+      >
+        <span>已注册用户</span>
+      </div>
+      <div
+        class="nav-menu-item"
         :class="{ active: $route.path === '/shoppingcart' }"
         @click="goToShoppingCart"
       >
         <span>动态功能</span>
       </div>
+      <div
+        class="nav-menu-item"
+        :class="{ active: $route.path === '/back-button' }"
+        @click="goToBackButton"
+      >
+        <span>后退功能</span>
+      </div>
+      <div
+        class="nav-menu-item"
+        :class="{ active: $route.path === '/counter' }"
+        @click="goToCounter"
+      >
+        <span>计数器</span>
+      </div>
     </div>
 
     <div class="nav-right">
       <div class="nav-user">
-        <span>{{ userStore.userName }}</span>
+        <span>{{ userStore.userStuId }}郭天正</span>
         <button class="nav-button" @click="handleLogout">登出</button>
       </div>
     </div>
@@ -85,6 +106,18 @@ const goToShoppingCart = () => {
 const goToNewsPage = () => {
   router.push('/newspage');
 };
+
+const goToRegisteredUsers = () => {
+  router.push('/registered-users');
+};
+
+const goToBackButton = () => {
+  router.push('/back-button');
+};
+
+const goToCounter = () => {
+  router.push('/counter');
+};
 </script>
 
 <style scoped>
@@ -92,7 +125,7 @@ const goToNewsPage = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   background: linear-gradient(to right, #2c3e50, #4a6491, #2c3e50);
   position: fixed;
   top: 0;
@@ -119,7 +152,7 @@ const goToNewsPage = () => {
 .nav-center {
   flex: 2;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0.1rem;
 }
 
 .nav-right {
@@ -140,7 +173,7 @@ const goToNewsPage = () => {
 
 .nav-brand h2 {
   color: white;
-  margin: 0;
+  /* margin: 0; */
   font-size: 1.5rem;
 }
 

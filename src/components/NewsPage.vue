@@ -74,8 +74,6 @@
 
         <!-- 新闻详情 -->
         <div v-else class="news-detail">
-          <button class="back-button" @click="backToNewsList">返回列表</button>
-
           <div class="detail-header">
             <h2 class="detail-title">
               {{ currentNews.title }}
@@ -100,11 +98,7 @@
             </p>
           </div>
 
-          <div class="detail-footer">
-            <button class="back-button" @click="backToNewsList">
-              返回列表
-            </button>
-          </div>
+          <div class="detail-footer" />
         </div>
       </div>
     </div>
@@ -694,12 +688,6 @@ const viewNewsDetail = newsItem => {
   showDetail.value = true;
 };
 
-// 返回新闻列表
-const backToNewsList = () => {
-  showDetail.value = false;
-  currentNews.value = null;
-};
-
 // 切换主板块
 const switchMainTab = tabId => {
   // 切换主板块时，自动切换到该板块的第一个子分类
@@ -954,22 +942,6 @@ onMounted(() => {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-}
-
-.back-button {
-  background-color: #4a6491;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #3a5481;
 }
 
 .detail-header {

@@ -6,88 +6,152 @@
     <!-- 购物车内容 -->
     <div class="shopping-cart-container">
       <div class="cart-header">
-        <button class="back-button" @click="goBack">
-          <span>← 后退</span>
-        </button>
-        <h1 class="cart-title">购物车</h1>
+        <h1 class="cart-title">商品管理</h1>
       </div>
 
       <div class="cart-content">
         <!-- 购物车表格 -->
         <div class="cart-table-wrapper">
-          <table class="cart-table">
+          <el-table
+            :data="cartStore.cartItems"
+            stripe
+            border
+            style="width: 100%"
+            @row-hover="handleRowHover"
+          >
             <!-- 表头 -->
-            <thead class="cart-table-header">
-              <tr>
-                <th class="col-select">
-                  <input
-                    v-model="cartStore.selectAll"
-                    type="checkbox"
-                    class="select-all-checkbox"
-                    @change="handleSelectAll"
-                  />
+            <el-table-column type="selection" width="55" align="center">
+              <template #header>
+                <el-checkbox
+                  v-model="cartStore.selectAll"
+                  @change="handleSelectAll"
+                >
                   <span>全选</span>
-                </th>
-                <th class="col-index">序号</th>
-                <th class="col-name">商品名称</th>
-                <th class="col-price">单价/元</th>
-                <th class="col-quantity">数量/件</th>
-                <th class="col-subtotal">小计/元</th>
-              </tr>
-            </thead>
+                </el-checkbox>
+              </template>
+            </el-table-column>
 
-            <!-- 表格内容 -->
-            <tbody>
-              <tr
-                v-for="(item, index) in cartStore.cartItems"
-                :key="index"
-                class="cart-table-row"
-              >
-                <td class="col-select">
-                  <input
-                    v-model="item.selected"
-                    type="checkbox"
-                    class="item-checkbox"
-                    @change="handleItemSelect"
-                  />
-                </td>
-                <td class="col-index">
-                  {{ index + 1 }}
-                </td>
-                <td class="col-name">
-                  {{ item.name }}
-                </td>
-                <td class="col-price">{{ item.price.toFixed(2) }}元</td>
-                <td class="col-quantity">
-                  <div class="quantity-control">
-                    <button
-                      class="quantity-btn decrease"
-                      :disabled="item.quantity <= 1"
-                      @click="decreaseQuantity(index)"
-                    >
-                      -
-                    </button>
-                    <input
-                      v-model.number="item.quantity"
-                      type="number"
-                      class="quantity-input"
-                      min="1"
-                      @input="handleQuantityInput(index)"
-                    />
-                    <button
-                      class="quantity-btn increase"
-                      @click="increaseQuantity(index)"
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-                <td class="col-subtotal">
-                  {{ (item.price * item.quantity).toFixed(2) }}元
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <el-table-column prop="id" label="序号" width="80" align="center">
+              <template #default="{ $index }">
+                {{ $index + 1 }}
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              prop="name"
+              label="商品名称"
+              min-width="180"
+              align="center"
+            />
+
+            <el-table-column
+              prop="price"
+              label="单价/元"
+              width="120"
+              align="center"
+            >
+              <template #default="{ row }">
+                {{ row.price.toFixed(2) }}元
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              prop="quantity"
+              label="数量/件"
+              width="160"
+              align="center"
+            >
+              <template #default="{ row, $index }">
+                <el-input-number
+                  v-model="row.quantity"
+                  :min="1"
+                  size="small"
+                  @change="handleQuantityInput($index)"
+                />
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              prop="subtotal"
+              label="小计/元"
+              width="120"
+              align="center"
+            >
+              <template #default="{ row }">
+                {{ (row.price * row.quantity).toFixed(2) }}元
+              </template>
+            </el-table-column>
+
+            <!-- 新增标签列 -->
+            <el-table-column label="标签" min-width="150" align="center">
+              <template #default="{ row }">
+                <el-tag
+                  v-for="tag in row.tags || ['热门', '推荐']"
+                  :key="tag"
+                  size="small"
+                  :type="tag === '热门' ? 'danger' : 'success'"
+                  style="margin-right: 5px"
+                >
+                  {{ tag }}
+                </el-tag>
+              </template>
+            </el-table-column>
+
+            <!-- 新增商品图片列 -->
+            <el-table-column label="商品图片" width="100" align="center">
+              <template #default="{ row }">
+                <el-image
+                  :src="
+                    row.image ||
+                    'https://picsum.photos/seed/product' + row.id + '/100/100'
+                  "
+                  :preview-src-list="[
+                    row.image ||
+                      'https://picsum.photos/seed/product' +
+                        row.id +
+                        '/400/400',
+                  ]"
+                  fit="cover"
+                  style="width: 60px; height: 60px; border-radius: 4px"
+                >
+                  <template #error>
+                    <div class="image-slot">
+                      <el-icon><Picture /></el-icon>
+                    </div>
+                  </template>
+                </el-image>
+              </template>
+            </el-table-column>
+
+            <!-- 新增操作列 -->
+            <el-table-column label="操作" width="180" align="center">
+              <template #default="{ row, $index }">
+                <el-button
+                  type="primary"
+                  size="small"
+                  style="margin-right: 5px"
+                  @click="viewDetail(row)"
+                >
+                  <el-icon><View /></el-icon> 查看详情
+                </el-button>
+                <el-button
+                  type="warning"
+                  size="small"
+                  style="margin-right: 5px"
+                  @click="editItem(row)"
+                >
+                  <el-icon><Edit /></el-icon> 编辑
+                </el-button>
+                <el-button
+                  type="danger"
+                  size="small"
+                  @click="deleteItem(row, $index)"
+                >
+                  <el-icon><Delete /></el-icon> 删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
 
         <!-- 购物车汇总 -->
@@ -123,6 +187,8 @@
 import { useCartStore } from '@/store/cart';
 import { watch } from 'vue';
 import TheNavbar from './TheNavbar.vue';
+import { ElMessage } from 'element-plus';
+import { Edit, View, Picture, Delete } from '@element-plus/icons-vue';
 
 // 状态管理
 const cartStore = useCartStore();
@@ -136,16 +202,6 @@ watch(
   { deep: true }
 );
 
-// 数量控制：增加
-const increaseQuantity = index => {
-  cartStore.increaseQuantity(index);
-};
-
-// 数量控制：减少
-const decreaseQuantity = index => {
-  cartStore.decreaseQuantity(index);
-};
-
 // 处理数量输入
 const handleQuantityInput = index => {
   cartStore.updateQuantity(index, cartStore.cartItems[index].quantity);
@@ -156,21 +212,45 @@ const handleSelectAll = () => {
   cartStore.handleSelectAll();
 };
 
-// 处理单个商品选择
-const handleItemSelect = () => {
-  // 自动触发watch更新
+// 处理行悬停
+const handleRowHover = () => {
+  // 可以在这里添加行悬停时的逻辑
 };
 
-// 后退功能，后退2步或尽可能后退到最早页面
-const goBack = () => {
-  // 检查历史记录长度，history.length包含当前页面
-  if (history.length > 3) {
-    // 当历史记录足够时，后退2步
-    window.history.go(-2);
-  } else if (history.length > 1) {
-    // 当历史记录不足2步时，退回到最早页面
-    window.history.go(-(history.length - 1));
-  }
+// 查看详情
+const viewDetail = row => {
+  // 查看详情的逻辑
+  ElMessage({
+    message: `查看商品${row.name}的详情`,
+    type: 'info',
+    duration: 2000,
+  });
+  console.log('查看详情:', row);
+  // 可以跳转到详情页面或弹出详情对话框
+};
+
+// 编辑商品
+const editItem = row => {
+  // 编辑商品的逻辑
+  ElMessage({
+    message: `编辑商品${row.name}`,
+    type: 'warning',
+    duration: 2000,
+  });
+  console.log('编辑商品:', row);
+  // 可以跳转到编辑页面或弹出编辑对话框
+};
+
+// 删除商品
+const deleteItem = (row, index) => {
+  // 删除商品的逻辑
+  ElMessage({
+    message: `删除商品${row.name}`,
+    type: 'success',
+    duration: 2000,
+  });
+  cartStore.removeItem(index);
+  console.log('删除商品:', row);
 };
 </script>
 
@@ -189,28 +269,6 @@ const goBack = () => {
   margin-bottom: 2rem;
 }
 
-/* 后退按钮样式 */
-.back-button {
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.back-button:hover {
-  background-color: #34495e;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .cart-title {
   color: #2c3e50;
   font-size: 2rem;
@@ -220,152 +278,37 @@ const goBack = () => {
 .cart-content {
   max-width: 1200px;
   margin: 0 auto;
-  border-radius: 10px;
-  padding: 2rem;
+  padding: 0 2rem 2rem;
 }
 
 /* 表格样式 */
 .cart-table-wrapper {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
   margin-bottom: 1rem;
-  max-height: 400px;
+  max-height: 500px;
   overflow-y: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-}
-
-/* 表头样式 */
-.cart-table-header {
-  position: sticky;
-  top: 0;
-  background-color: #f8f9fa;
-  z-index: 100;
-}
-
-.cart-table-header th {
-  padding: 1rem;
-  text-align: center;
-  font-weight: 600;
-  color: #2c3e50;
-  border-bottom: 2px solid #e0e0e0;
-  /* white-space: nowrap; */
-}
-
-/* 表格列宽分配 */
-.col-select {
-  width: 80px;
-  text-align: center;
-}
-
-.col-index {
-  width: 60px;
-  text-align: center;
-}
-
-.col-name {
-  flex: 2;
-  text-align: center;
-}
-
-.col-price {
-  width: 120px;
-  text-align: center;
-}
-
-.col-quantity {
-  width: 160px;
-  text-align: center;
-}
-
-.col-subtotal {
-  width: 120px;
-  text-align: center;
-}
-
-/* 表格内容样式 */
-.cart-table-row {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.cart-table-row:hover {
-  background-color: #f8f9fa;
-}
-
-.cart-table-row td {
-  padding: 1.5rem 1rem;
-}
-
-/* 复选框样式 */
-.select-all-checkbox,
-.item-checkbox {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  margin-right: 0.5rem;
-}
-
-/* 数量控制样式 */
-.quantity-control {
+/* 图片错误占位符样式 */
+.image-slot {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.quantity-btn {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
-  background-color: white;
-  border-radius: 4px;
-  font-size: 1.3rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.quantity-btn:hover:not(:disabled) {
-  background-color: #2c3e50;
-  color: white;
-  border-color: #2c3e50;
-}
-
-.quantity-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.quantity-input {
-  width: 70px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 1rem;
-  padding: 0 0.5rem;
-  box-sizing: border-box;
-}
-
-.quantity-input:focus {
-  outline: none;
-  border-color: #2c3e50;
+  width: 60px;
+  height: 60px;
+  background-color: #f5f7fa;
+  color: #909399;
 }
 
 /* 购物车汇总样式 */
 .cart-summary {
   padding: 1.5rem;
   border-radius: 8px;
+  background-color: #f8f9fa;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1rem;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
 .summary-left {

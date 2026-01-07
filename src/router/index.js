@@ -29,8 +29,23 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/registered-users',
+      component: () => import('@/components/RegisteredUsers.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/shoppingcart',
       component: () => import('@/components/ShoppingCart.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/back-button',
+      component: () => import('@/components/BackButtonPage.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/counter',
+      component: () => import('@/components/CounterPage.vue'),
       meta: { requiresAuth: true },
     },
   ],

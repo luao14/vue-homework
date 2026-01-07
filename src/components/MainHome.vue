@@ -64,7 +64,7 @@ const goToSlide = index => {
 const startAutoPlay = () => {
   slideInterval = setInterval(() => {
     nextSlide();
-  }, 5000);
+  }, 2000);
 };
 
 const stopAutoPlay = () => {
@@ -139,7 +139,7 @@ onUnmounted(() => {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: background 1s;
+  transition: background 0.3s;
 }
 
 .carousel-indicators span.active {
