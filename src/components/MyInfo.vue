@@ -34,7 +34,7 @@
                 v-model="weight"
                 type="text"
                 class="form-input"
-                placeholder="请输入体重（kg）"
+                placeholder="请输入体重(kg)"
               />
             </div>
             <div class="form-group">
