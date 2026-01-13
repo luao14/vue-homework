@@ -22,7 +22,7 @@
                 v-model="height"
                 type="text"
                 class="form-input"
-                placeholder="请输入身高（cm）"
+                placeholder="请输入身高(cm)"
               />
             </div>
           </div>
