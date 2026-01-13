@@ -6,7 +6,7 @@
     <!-- 购物车内容 -->
     <div class="shopping-cart-container">
       <div class="cart-header">
-        <h1 class="cart-title">商品管理</h1>
+        <h1 class="cart-title">医疗服务管理</h1>
       </div>
 
       <div class="cart-content">
@@ -18,6 +18,7 @@
             border
             style="width: 100%"
             @row-hover="handleRowHover"
+            @selection-change="handleSelectionChange"
           >
             <!-- 表头 -->
             <el-table-column type="selection" width="55" align="center">
@@ -39,14 +40,14 @@
 
             <el-table-column
               prop="name"
-              label="商品名称"
+              label="服务名称"
               min-width="180"
               align="center"
             />
 
             <el-table-column
               prop="price"
-              label="单价/元"
+              label="费用/元"
               width="120"
               align="center"
             >
@@ -57,7 +58,7 @@
 
             <el-table-column
               prop="quantity"
-              label="数量/件"
+              label="预约数量"
               width="160"
               align="center"
             >
@@ -86,7 +87,7 @@
             <el-table-column label="标签" min-width="150" align="center">
               <template #default="{ row }">
                 <el-tag
-                  v-for="tag in row.tags || ['热门', '推荐']"
+                  v-for="tag in row.tags || ['常规', '推荐']"
                   :key="tag"
                   size="small"
                   :type="tag === '热门' ? 'danger' : 'success'"
@@ -97,17 +98,17 @@
               </template>
             </el-table-column>
 
-            <!-- 新增商品图片列 -->
-            <el-table-column label="商品图片" width="100" align="center">
+            <!-- 新增服务图片列 -->
+            <el-table-column label="服务图片" width="100" align="center">
               <template #default="{ row }">
                 <el-image
                   :src="
                     row.image ||
-                    'https://picsum.photos/seed/product' + row.id + '/100/100'
+                    'https://picsum.photos/seed/service' + row.id + '/100/100'
                   "
                   :preview-src-list="[
                     row.image ||
-                      'https://picsum.photos/seed/product' +
+                      'https://picsum.photos/seed/service' +
                         row.id +
                         '/400/400',
                   ]"
@@ -157,21 +158,21 @@
         <!-- 购物车汇总 -->
         <div class="cart-summary">
           <div class="summary-left">
-            <span>已选择 {{ cartStore.selectedCount }} 种商品</span>
+            <span>已选择 {{ cartStore.selectedCount }} 项校医服务</span>
           </div>
           <div class="summary-right">
             <div class="summary-item">
-              <span>所有商品总数：</span>
-              <span class="summary-value">{{ cartStore.totalQuantity }}件</span>
+              <span>所有服务总数：</span>
+              <span class="summary-value">{{ cartStore.totalQuantity }}项</span>
             </div>
             <div class="summary-item">
-              <span>选中商品总价：</span>
+              <span>选中服务总价：</span>
               <span class="summary-value selected-total"
                 >{{ cartStore.selectedTotal.toFixed(2) }}元</span
               >
             </div>
             <div class="summary-item">
-              <span>所有商品总价：</span>
+              <span>所有服务总价：</span>
               <span class="summary-value total-price"
                 >{{ cartStore.totalPrice.toFixed(2) }}元</span
               >
@@ -190,8 +191,14 @@ import TheNavbar from './TheNavbar.vue';
 import { ElMessage } from 'element-plus';
 import { Edit, View, Picture, Delete } from '@element-plus/icons-vue';
 
-// 状态管理
 const cartStore = useCartStore();
+
+const handleSelectionChange = selection => {
+  cartStore.cartItems.forEach(item => {
+    item.selected = selection.includes(item);
+  });
+  cartStore.updateSelectAll();
+};
 
 // 监听商品选择状态变化，更新全选状态
 watch(
@@ -219,48 +226,39 @@ const handleRowHover = () => {
 
 // 查看详情
 const viewDetail = row => {
-  // 查看详情的逻辑
   ElMessage({
-    message: `查看商品${row.name}的详情`,
+    message: `查看校医服务${row.name}的详情`,
     type: 'info',
     duration: 2000,
   });
   console.log('查看详情:', row);
-  // 可以跳转到详情页面或弹出详情对话框
 };
 
-// 编辑商品
 const editItem = row => {
-  // 编辑商品的逻辑
   ElMessage({
-    message: `编辑商品${row.name}`,
+    message: `编辑校医服务${row.name}`,
     type: 'warning',
     duration: 2000,
   });
-  console.log('编辑商品:', row);
-  // 可以跳转到编辑页面或弹出编辑对话框
+  console.log('编辑校医服务:', row);
 };
 
-// 删除商品
 const deleteItem = (row, index) => {
-  // 删除商品的逻辑
   ElMessage({
-    message: `删除商品${row.name}`,
+    message: `删除校医服务${row.name}`,
     type: 'success',
     duration: 2000,
   });
   cartStore.removeItem(index);
-  console.log('删除商品:', row);
+  console.log('删除校医服务:', row);
 };
 </script>
 
 <style scoped>
-/* 购物车样式 */
 .shopping-cart-container {
   margin-top: 120px;
 }
 
-/* 购物车头部样式 */
 .cart-header {
   display: flex;
   align-items: center;
@@ -270,7 +268,7 @@ const deleteItem = (row, index) => {
 }
 
 .cart-title {
-  color: #2c3e50;
+  color: #0066cc;
   font-size: 2rem;
   margin: 0;
 }
@@ -281,14 +279,12 @@ const deleteItem = (row, index) => {
   padding: 0 2rem 2rem;
 }
 
-/* 表格样式 */
 .cart-table-wrapper {
   margin-bottom: 1rem;
   max-height: 500px;
   overflow-y: auto;
 }
 
-/* 图片错误占位符样式 */
 .image-slot {
   display: flex;
   justify-content: center;
@@ -299,7 +295,6 @@ const deleteItem = (row, index) => {
   color: #909399;
 }
 
-/* 购物车汇总样式 */
 .cart-summary {
   padding: 1.5rem;
   border-radius: 8px;
@@ -344,5 +339,142 @@ const deleteItem = (row, index) => {
 .total-price {
   color: #e74c3c;
   font-size: 1.3rem;
+}
+
+@media (max-width: 1200px) {
+  .cart-content {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .cart-title {
+    font-size: 1.8rem;
+  }
+
+  .summary-right {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .shopping-cart-container {
+    margin-top: 100px;
+  }
+
+  .cart-header {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cart-title {
+    font-size: 1.6rem;
+  }
+
+  .cart-content {
+    padding: 0 1rem 1rem;
+  }
+
+  .cart-table-wrapper {
+    max-height: 400px;
+  }
+
+  .cart-summary {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .summary-right {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .summary-item {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .shopping-cart-container {
+    margin-top: 80px;
+  }
+
+  .cart-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cart-title {
+    font-size: 1.4rem;
+  }
+
+  .cart-content {
+    padding: 0 0.8rem 0.8rem;
+  }
+
+  .cart-table-wrapper {
+    max-height: 350px;
+    overflow-x: auto;
+  }
+
+  .cart-summary {
+    padding: 1rem;
+  }
+
+  .summary-left {
+    font-size: 1rem;
+  }
+
+  .summary-right {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-item {
+    font-size: 0.95rem;
+  }
+
+  .selected-total {
+    font-size: 1.1rem;
+  }
+
+  .total-price {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-title {
+    font-size: 1.2rem;
+  }
+
+  .cart-content {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .cart-table-wrapper {
+    max-height: 300px;
+  }
+
+  .cart-summary {
+    padding: 0.8rem;
+  }
+
+  .summary-left {
+    font-size: 0.9rem;
+  }
+
+  .summary-item {
+    font-size: 0.9rem;
+  }
+
+  .selected-total {
+    font-size: 1rem;
+  }
+
+  .total-price {
+    font-size: 1.05rem;
+  }
 }
 </style>
