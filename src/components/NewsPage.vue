@@ -107,6 +107,20 @@ import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import TheNavbar from './TheNavbar.vue';
 
+// 导入图片资源
+import hospital1 from '@/image/医院1.jpg';
+import hospital2 from '@/image/医院2.jpg';
+import hospital3 from '@/image/医院3.jpg';
+import hospital4 from '@/image/医院4.jpg';
+import hospital5 from '@/image/医院5.jpg';
+import hospital6 from '@/image/医院6.jpg';
+import hospital7 from '@/image/医院7.jpg';
+import hospital8 from '@/image/医院8.jpg';
+import hospital9 from '@/image/医院9.jpg';
+import hospital10 from '@/image/医院10.jpg';
+import hospital11 from '@/image/医院11.jpg';
+import hospital12 from '@/image/医院12.jpg';
+
 const router = useRouter();
 const route = useRoute();
 
@@ -171,7 +185,7 @@ const contentData = ref({
         id: 1,
         title: '校医院2024年度体检工作通知',
         description: '2024年度师生体检工作将于下月启动,请各位师生提前做好准备',
-        image: 'https://picsum.photos/seed/hospital1/300/200',
+        image: hospital1,
         date: '2024-01-15 09:00',
         category: '体检通知',
         source: '校医院办公室',
@@ -187,7 +201,7 @@ const contentData = ref({
         id: 2,
         title: '春季传染病预防通知',
         description: '春季是传染病高发季节,请各位师生注意预防',
-        image: 'https://picsum.photos/seed/hospital2/300/200',
+        image: hospital2,
         date: '2024-01-20 10:30',
         category: '体检通知',
         source: '校医院预防保健科',
@@ -203,7 +217,7 @@ const contentData = ref({
         id: 3,
         title: '疫苗接种安排通知',
         description: '校医院将开展流感疫苗和乙肝疫苗接种工作',
-        image: 'https://picsum.photos/seed/hospital3/300/200',
+        image: hospital3,
         date: '2024-01-25 14:00',
         category: '体检通知',
         source: '校医院免疫规划科',
@@ -221,7 +235,7 @@ const contentData = ref({
         id: 4,
         title: '学生医保报销政策解读',
         description: '详细解读学生医保报销政策和流程',
-        image: 'https://picsum.photos/seed/insurance1/300/200',
+        image: hospital4,
         date: '2024-01-18 11:00',
         category: '医保政策',
         source: '校医院医保办',
@@ -237,7 +251,7 @@ const contentData = ref({
         id: 5,
         title: '教职工医保政策更新通知',
         description: '2024年教职工医保政策有所调整',
-        image: 'https://picsum.photos/seed/insurance2/300/200',
+        image: hospital5,
         date: '2024-01-22 15:30',
         category: '医保政策',
         source: '校医院医保办',
@@ -254,7 +268,7 @@ const contentData = ref({
         id: 6,
         title: '异地就医备案流程说明',
         description: '师生异地就医如何办理备案手续',
-        image: 'https://picsum.photos/seed/insurance3/300/200',
+        image: hospital6,
         date: '2024-01-28 16:00',
         category: '医保政策',
         source: '校医院医保办',
@@ -273,7 +287,7 @@ const contentData = ref({
         id: 7,
         title: '校医院急诊服务安排',
         description: '校医院24小时急诊服务安排',
-        image: 'https://picsum.photos/seed/emergency1/300/200',
+        image: hospital7,
         date: '2024-01-16 08:00',
         category: '急诊通知',
         source: '校医院急诊科',
@@ -294,7 +308,7 @@ const contentData = ref({
         id: 8,
         title: '冬季传染病预防知识讲座',
         description: '校医院举办冬季传染病预防知识讲座',
-        image: 'https://picsum.photos/seed/health1/300/200',
+        image: hospital8,
         date: '2024-01-12 14:30',
         category: '疾病预防',
         source: '校医院预防保健科',
@@ -311,7 +325,7 @@ const contentData = ref({
         id: 9,
         title: '心理健康知识普及',
         description: '关注师生心理健康,校医院开展心理健康知识普及活动',
-        image: 'https://picsum.photos/seed/health2/300/200',
+        image: hospital9,
         date: '2024-01-19 10:00',
         category: '疾病预防',
         source: '校医院心理咨询室',
@@ -328,7 +342,7 @@ const contentData = ref({
         id: 10,
         title: '常见慢性病预防与管理',
         description: '校医院开展常见慢性病预防与管理健康讲座',
-        image: 'https://picsum.photos/seed/health3/300/200',
+        image: hospital10,
         date: '2024-01-24 15:00',
         category: '疾病预防',
         source: '校医院内科',
@@ -347,7 +361,7 @@ const contentData = ref({
         id: 11,
         title: '校园营养健康指导',
         description: '校医院营养师提供校园营养健康指导',
-        image: 'https://picsum.photos/seed/nutrition1/300/200',
+        image: hospital11,
         date: '2024-01-17 09:30',
         category: '营养健康',
         source: '校医院营养科',
@@ -364,7 +378,7 @@ const contentData = ref({
         id: 12,
         title: '春季饮食健康建议',
         description: '营养师提供春季饮食健康建议',
-        image: 'https://picsum.photos/seed/nutrition2/300/200',
+        image: hospital12,
         date: '2024-01-23 11:30',
         category: '营养健康',
         source: '校医院营养科',
@@ -384,7 +398,7 @@ const contentData = ref({
         id: 13,
         title: '考前心理调适指导',
         description: '校医院心理咨询室提供考前心理调适指导',
-        image: 'https://picsum.photos/seed/psychology1/300/200',
+        image: hospital1,
         date: '2024-01-14 16:30',
         category: '心理健康',
         source: '校医院心理咨询室',
@@ -405,7 +419,7 @@ const contentData = ref({
         id: 14,
         title: '校医院引进先进医疗设备',
         description: '校医院新引进多台先进医疗设备,提升医疗服务水平',
-        image: 'https://picsum.photos/seed/equipment1/300/200',
+        image: hospital2,
         date: '2024-01-21 10:00',
         category: '设备更新',
         source: '校医院设备科',
@@ -421,7 +435,7 @@ const contentData = ref({
         id: 15,
         title: '校医院信息化系统升级',
         description: '校医院信息化系统完成升级,提供更便捷的服务',
-        image: 'https://picsum.photos/seed/equipment2/300/200',
+        image: hospital3,
         date: '2024-01-26 14:00',
         category: '设备更新',
         source: '校医院信息科',
@@ -439,7 +453,7 @@ const contentData = ref({
         id: 16,
         title: '校医院举办健康义诊活动',
         description: '校医院将举办健康义诊活动,为师生提供免费医疗服务',
-        image: 'https://picsum.photos/seed/activity1/300/200',
+        image: hospital4,
         date: '2024-01-13 09:00',
         category: '医院活动',
         source: '校医院办公室',
@@ -456,7 +470,7 @@ const contentData = ref({
         id: 17,
         title: '校医院开展健康知识竞赛',
         description: '校医院将开展健康知识竞赛,提高师生健康意识',
-        image: 'https://picsum.photos/seed/activity2/300/200',
+        image: hospital5,
         date: '2024-01-27 15:30',
         category: '医院活动',
         source: '校医院办公室',
@@ -475,7 +489,7 @@ const contentData = ref({
         id: 18,
         title: '校医院专家门诊时间安排',
         description: '校医院专家门诊时间安排公布',
-        image: 'https://picsum.photos/seed/expert1/300/200',
+        image: hospital6,
         date: '2024-01-15 08:30',
         category: '专家介绍',
         source: '校医院医务科',

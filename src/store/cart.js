@@ -21,112 +21,226 @@ export const useCartStore = defineStore('cart', {
         id: 1,
         name: '校医门诊挂号',
         price: 5.0,
+        originalPrice: 5.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '基础服务'],
         image: hospitalImage1,
+        stock: 100,
+        description: '校医院门诊挂号服务，包括普通门诊和专家门诊',
+        duration: '30分钟',
+        department: '门诊部',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 2,
         name: '校医药品发放',
         price: 0.0,
+        originalPrice: 0.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '常用服务'],
         image: hospitalImage2,
+        stock: 500,
+        description: '校医院常用药品发放服务，包括感冒药、消炎药等',
+        duration: '15分钟',
+        department: '药房',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 3,
         name: '学生常规健康体检',
         price: 120.0,
+        originalPrice: 150.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '体检服务', '热门'],
         image: hospitalImage3,
+        stock: 50,
+        description:
+          '学生常规健康体检，包括身高体重、血压、血常规、尿常规、肝功能、肾功能、心电图、胸部X光、B超等检查项目',
+        duration: '2小时',
+        department: '体检中心',
+        discount: 20,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 4,
         name: '学生疫苗接种',
         price: 50.0,
+        originalPrice: 50.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '预防保健'],
         image: hospitalImage4,
+        stock: 200,
+        description: '流感疫苗和乙肝疫苗接种服务，提供专业的疫苗接种和健康指导',
+        duration: '30分钟',
+        department: '预防保健科',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 5,
         name: '校医血常规检查',
         price: 25.0,
+        originalPrice: 30.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '基础检查'],
         image: hospitalImage5,
+        stock: 150,
+        description: '血常规检查，包括白细胞、红细胞、血小板等指标检测',
+        duration: '20分钟',
+        department: '检验科',
+        discount: 5,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 6,
         name: '校医心电图检查',
         price: 50.0,
+        originalPrice: 60.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '心脏检查'],
         image: hospitalImage6,
+        stock: 80,
+        description: '心电图检查，用于诊断心律失常、心肌缺血等心脏疾病',
+        duration: '15分钟',
+        department: '功能检查科',
+        discount: 10,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 7,
         name: '校医健康咨询',
         price: 0.0,
+        originalPrice: 0.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '健康指导', '推荐'],
         image: hospitalImage7,
+        stock: 999,
+        description: '专业医生健康咨询服务，提供个性化的健康指导和建议',
+        duration: '30分钟',
+        department: '健康咨询科',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 8,
         name: '校医急诊处理',
         price: 30.0,
+        originalPrice: 30.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '急诊服务', '热门'],
         image: hospitalImage8,
+        stock: 30,
+        description:
+          '24小时急诊处理服务，包括急性外伤、急性腹痛、高热等紧急情况处理',
+        duration: '视情况而定',
+        department: '急诊科',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 9,
         name: '校医常见病诊疗',
         price: 10.0,
+        originalPrice: 15.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '诊疗服务'],
         image: hospitalImage9,
+        stock: 200,
+        description:
+          '常见病诊疗服务，包括感冒、发烧、肠胃不适等常见疾病的诊断和治疗',
+        duration: '30分钟',
+        department: '内科',
+        discount: 5,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 10,
         name: '校医心理健康咨询',
         price: 0.0,
+        originalPrice: 0.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '心理咨询', '推荐'],
         image: hospitalImage10,
+        stock: 50,
+        description:
+          '专业心理咨询师提供的心理健康咨询服务，包括压力管理、情绪调节等',
+        duration: '45分钟',
+        department: '心理咨询室',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 11,
         name: '校医传染病防控',
         price: 0.0,
+        originalPrice: 0.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '预防保健'],
         image: hospitalImage11,
+        stock: 999,
+        description: '传染病防控服务，提供传染病预防知识宣传和防控指导',
+        duration: '30分钟',
+        department: '预防保健科',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
       {
         id: 12,
         name: '校医健康教育讲座',
         price: 0.0,
+        originalPrice: 0.0,
         quantity: 1,
         selected: false,
         tags: ['校医服务', '健康指导'],
         image: hospitalImage12,
+        stock: 30,
+        description:
+          '健康教育讲座，包括疾病预防、营养健康、心理健康等主题的健康知识普及',
+        duration: '2小时',
+        department: '健康教育科',
+        discount: 0,
+        userId: null,
+        createTime: null,
+        remarks: '',
       },
     ],
     selectAll: false,
+    userId: null,
   }),
 
   getters: {
@@ -141,6 +255,21 @@ export const useCartStore = defineStore('cart', {
       );
     },
 
+    originalTotalPrice: state => {
+      return state.cartItems.reduce(
+        (total, item) => total + item.originalPrice * item.quantity,
+        0
+      );
+    },
+
+    totalDiscount: state => {
+      return state.cartItems.reduce(
+        (total, item) =>
+          total + (item.originalPrice - item.price) * item.quantity,
+        0
+      );
+    },
+
     selectedCount: state => {
       return state.cartItems.filter(item => item.selected).length;
     },
@@ -150,11 +279,38 @@ export const useCartStore = defineStore('cart', {
         return item.selected ? total + item.price * item.quantity : total;
       }, 0);
     },
+
+    selectedOriginalTotal: state => {
+      return state.cartItems.reduce((total, item) => {
+        return item.selected
+          ? total + item.originalPrice * item.quantity
+          : total;
+      }, 0);
+    },
+
+    selectedDiscount: state => {
+      return state.cartItems.reduce((total, item) => {
+        return item.selected
+          ? total + (item.originalPrice - item.price) * item.quantity
+          : total;
+      }, 0);
+    },
+
+    hasOutOfStockItems: state => {
+      return state.cartItems.some(item => item.quantity > item.stock);
+    },
+
+    outOfStockItems: state => {
+      return state.cartItems.filter(item => item.quantity > item.stock);
+    },
   },
 
   actions: {
     increaseQuantity(index) {
-      this.cartItems[index].quantity++;
+      const item = this.cartItems[index];
+      if (item.quantity < item.stock) {
+        item.quantity++;
+      }
     },
 
     decreaseQuantity(index) {
@@ -167,8 +323,43 @@ export const useCartStore = defineStore('cart', {
       if (isNaN(quantity) || quantity < 1) {
         this.cartItems[index].quantity = 1;
       } else {
-        this.cartItems[index].quantity = quantity;
+        this.cartItems[index].quantity = Math.min(
+          quantity,
+          this.cartItems[index].stock
+        );
       }
+    },
+
+    addItem(service) {
+      const existingIndex = this.cartItems.findIndex(
+        item => item.id === service.id
+      );
+      if (existingIndex !== -1) {
+        this.cartItems[existingIndex].quantity += service.quantity || 1;
+      } else {
+        this.cartItems.push({
+          ...service,
+          quantity: service.quantity || 1,
+          selected: false,
+          createTime: new Date().toISOString(),
+          userId: this.userId,
+        });
+      }
+    },
+
+    removeItem(index) {
+      this.cartItems.splice(index, 1);
+      this.updateSelectAll();
+    },
+
+    removeSelectedItems() {
+      this.cartItems = this.cartItems.filter(item => !item.selected);
+      this.updateSelectAll();
+    },
+
+    clearCart() {
+      this.cartItems = [];
+      this.selectAll = false;
     },
 
     handleSelectAll() {
@@ -190,10 +381,52 @@ export const useCartStore = defineStore('cart', {
       }
     },
 
-    removeItem(index) {
-      this.cartItems.splice(index, 1);
-      // 删除后更新全选状态
-      this.updateSelectAll();
+    checkStock(serviceId, quantity) {
+      const item = this.cartItems.find(item => item.id === serviceId);
+      if (!item) return true;
+      return quantity <= item.stock;
+    },
+
+    updateItemRemarks(index, remarks) {
+      this.cartItems[index].remarks = remarks;
+    },
+
+    setUserId(userId) {
+      this.userId = userId;
+      this.cartItems.forEach(item => {
+        item.userId = userId;
+      });
+    },
+
+    loadUserCart(userId) {
+      this.userId = userId;
+      const savedCart = localStorage.getItem(`cart-${userId}`);
+      if (savedCart) {
+        this.cartItems = JSON.parse(savedCart);
+      }
+    },
+
+    saveUserCart() {
+      if (this.userId) {
+        localStorage.setItem(
+          `cart-${this.userId}`,
+          JSON.stringify(this.cartItems)
+        );
+      }
+    },
+
+    applyDiscount(serviceId, discountAmount) {
+      const item = this.cartItems.find(item => item.id === serviceId);
+      if (item) {
+        item.discount = discountAmount;
+        item.price = item.originalPrice - discountAmount;
+      }
+    },
+
+    calculateFinalPrice(serviceId, quantity) {
+      const item = this.cartItems.find(item => item.id === serviceId);
+      if (!item) return 0;
+      return item.price * quantity;
     },
   },
 
