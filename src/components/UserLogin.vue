@@ -2,8 +2,8 @@
   <div class="login-container">
     <div class="login-form">
       <div class="header">
-        <img src="@/image/logo.png" alt="logo" class="logo" />
-        <h1>用户登录</h1>
+        <img src="@/image/校徽.jpg" alt="logo" class="logo" />
+        <h1>义乌工商校医院登录</h1>
       </div>
 
       <form @submit.prevent="handleLogin">
@@ -68,13 +68,13 @@ const handleLogin = () => {
   align-items: center;
   background: linear-gradient(
     -45deg,
-    #1f2a31,
-    #2e3d4d,
-    #5678b3,
-    #6b9cf1,
-    #5678b3,
-    #2e3d4d,
-    #1f2a31
+    #004d99,
+    #0066cc,
+    #4caf50,
+    #66bb6a,
+    #4caf50,
+    #0066cc,
+    #004d99
   );
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
@@ -114,8 +114,8 @@ const handleLogin = () => {
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   margin-bottom: 15px;
   border-radius: 50%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -169,7 +169,7 @@ input:focus::placeholder {
 .login-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(45deg, #4becfd, #12b0f4, #1a72ff, #0813ec);
+  background: linear-gradient(45deg, #0066cc, #0088cc, #4caf50);
   background-size: 400% 400%;
   color: white;
   border: none;
@@ -255,6 +255,94 @@ input:focus::placeholder {
 
   100% {
     transform: translate(50px, 50px);
+  }
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    padding: 30px 25px;
+    max-width: 100%;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .form-group p {
+    font-size: 16px;
+  }
+
+  input {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    padding: 12px;
+    font-size: 18px;
+  }
+
+  .error-message {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-form {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
+
+  .header {
+    margin-bottom: 25px;
+  }
+
+  .header h1 {
+    font-size: 1.3rem;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group p {
+    font-size: 14px;
+  }
+
+  input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .error-message {
+    font-size: 13px;
+    margin-top: 12px;
   }
 }
 </style>

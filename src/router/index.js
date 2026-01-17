@@ -14,11 +14,6 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/myinfo',
-      component: () => import('@/components/MyInfo.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
       path: '/newspage/:mainTab?/:subTab?',
       component: () => import('@/components/NewsPage.vue'),
       meta: { requiresAuth: true },
@@ -39,13 +34,13 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/back-button',
-      component: () => import('@/components/BackButtonPage.vue'),
+      path: '/medical-statistics',
+      component: () => import('@/components/MedicalStatistics.vue'),
       meta: { requiresAuth: true },
     },
     {
-      path: '/counter',
-      component: () => import('@/components/CounterPage.vue'),
+      path: '/campus-scenery',
+      component: () => import('@/components/CampusScenery.vue'),
       meta: { requiresAuth: true },
     },
   ],

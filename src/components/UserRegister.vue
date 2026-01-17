@@ -71,6 +71,40 @@
         </div>
 
         <div class="form-group">
+          <label class="form-label">参与的体检项目：</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input v-model="checkupItems" type="checkbox" value="血常规" />
+              <span class="checkbox-text">血常规</span>
+            </label>
+            <label class="checkbox-option">
+              <input v-model="checkupItems" type="checkbox" value="尿常规" />
+              <span class="checkbox-text">尿常规</span>
+            </label>
+            <label class="checkbox-option">
+              <input v-model="checkupItems" type="checkbox" value="心电图" />
+              <span class="checkbox-text">心电图</span>
+            </label>
+            <label class="checkbox-option">
+              <input v-model="checkupItems" type="checkbox" value="胸部X光" />
+              <span class="checkbox-text">胸部X光</span>
+            </label>
+            <label class="checkbox-option">
+              <input
+                v-model="checkupItems"
+                type="checkbox"
+                value="肝功能检查"
+              />
+              <span class="checkbox-text">肝功能检查</span>
+            </label>
+            <label class="checkbox-option">
+              <input v-model="checkupItems" type="checkbox" value="B超检查" />
+              <span class="checkbox-text">B超检查</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-label">住址：</label>
           <textarea
             v-model="address"
@@ -126,6 +160,7 @@ let pwd = ref('');
 let pwd2 = ref('');
 let tips = ref('');
 let gender = ref('');
+let checkupItems = ref([]);
 
 let cityName = ref('');
 let address = ref('');
@@ -150,12 +185,10 @@ watch([pwd, pwd2], () => {
   }
 });
 
-// 监听用户是否同意本站协议
 watch(agree, newVal => {
   isDisabled.value = !newVal;
 });
 
-// 提交按钮调用方法
 function mysubmit() {
   if (user.value.length < 4) {
     alert('用户名长度不能小于 4');
@@ -165,10 +198,11 @@ function mysubmit() {
     alert('请输入住址');
   } else if (tips.value !== '正确') {
     alert('请输入正确的密码');
+  } else if (checkupItems.value.length === 0) {
+    alert('请至少选择一项体检项目');
   } else {
     alert('注册成功！');
 
-    // 创建用户数据对象
     const userData = {
       user: user.value,
       name: name.value,
@@ -176,26 +210,25 @@ function mysubmit() {
       gender: gender.value,
       address: address.value,
       cityName: cityName.value,
+      checkupItems: checkupItems.value,
       registerTime: new Date().toLocaleString(),
     };
 
-    // 添加用户到全局状态
     usersStore.addUser(userData);
 
-    // 清空表单
     resetForm();
   }
 }
 
-// 重置表单
 function resetForm() {
   user.value = '';
   name.value = '';
   pwd.value = '';
   pwd2.value = '';
   gender.value = '';
-  address.value = '';
+  checkupItems.value = [];
   cityName.value = '';
+  address.value = '';
   agree.value = false;
   isDisabled.value = true;
   tips.value = '';
